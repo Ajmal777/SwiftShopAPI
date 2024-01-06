@@ -29,12 +29,14 @@ const reply = async (userId, userName, data) => {
             $push: { replies: commentId },
         });
         if (!response) throw new APIError("Comment not found", 404);
-    } else {
+    } 
+    else if(reviewId) {
         const response = await Review.findByIdAndUpdate(reviewId, {
             $push: { replies: commentId },
         });
         if (!response) throw new APIError("Review not found", 404);
     }
+    else throw new APIError('reviewId / parentCommentId required.', 400);
 
     return {
         status: 201,
@@ -44,7 +46,7 @@ const reply = async (userId, userName, data) => {
 };
 
 const editComment = async (userId, { text, commentId }) => {
-    const { error } = Joi.string().min(1).validate(comment);
+    const { error } = Joi.string().min(1).validate(text);
     if (error) throw new APIError(error.message, 400);
 
     const check = await Comment.findById(commentId);

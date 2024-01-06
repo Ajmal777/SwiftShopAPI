@@ -9,8 +9,8 @@ const commentRoutes = require('./Comments.routes');
 
 router.use(['/user', '/users'], userRoutes);
 router.use(['/seller', '/sellers'], sellerRoutes);
-router.use(['/review', '/reviews'], reviewRoutes);
 router.use(['/product', '/products'], productRoutes);
+router.use(['/review', '/reviews'], reviewRoutes);
 router.use(['/comment', '/comments'], commentRoutes);
 
 module.exports = router;
